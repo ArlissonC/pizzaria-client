@@ -1,4 +1,4 @@
-import { authService } from "@/services/auth/auth";
+import { authService } from "@/services/auth";
 import { SignUpRequest } from "@/services/auth/types";
 import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
