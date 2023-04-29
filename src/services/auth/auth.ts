@@ -16,7 +16,7 @@ const signIn = async (
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      alert(error);
+      console.log(error.response?.data.error);
     }
   }
 };
@@ -30,7 +30,6 @@ const signUp = async (
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      alert(error);
     }
   }
 };

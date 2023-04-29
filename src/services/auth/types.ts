@@ -17,7 +17,10 @@ export type SignUpRequest = {
 };
 
 export type SignUpResponse = {
-  id: string;
-  email: string;
-  name: string;
+  data: {
+    id: string;
+    email: string;
+    name: string;
+  };
+  message: string;
 };

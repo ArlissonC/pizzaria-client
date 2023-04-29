@@ -62,6 +62,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const res = await authService.signUp({ email, name, password });
 
     if (res) {
+      console.log(res.message);
       Router.push("/");
     }
 
