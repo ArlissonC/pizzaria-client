@@ -50,6 +50,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
       });
+
       setUser({ id, name, email });
 
       Router.push("/dashboard");
