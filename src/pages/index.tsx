@@ -1,3 +1,5 @@
+import Header from "@/components/Header";
+import { canSSRAuth } from "@/utils/canSSRAuth";
 import Head from "next/head";
 
 export default function Home() {
@@ -10,8 +12,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Header />
         <h1>Dashboard</h1>
       </main>
     </>
   );
 }
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  return {
+    props: {},
+  };
+});

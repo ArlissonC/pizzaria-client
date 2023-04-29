@@ -1,8 +1,14 @@
 import { authService } from "@/services/auth/auth";
 import { SignUpRequest } from "@/services/auth/types";
 import Router from "next/router";
-import { destroyCookie, setCookie } from "nookies";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type AuthContextData = {
   user: UserProps;
@@ -53,7 +59,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
       setUser({ id, name, email });
 
-      Router.push("/dashboard");
+      Router.push("/");
     }
     setLoading(false);
   };
@@ -69,6 +75,25 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     setLoading(false);
   };
+
+  useEffect(() => {
+    (async () => {
+      const { "@nextauth.token": token } = parseCookies();
+
+      if (token) {
+        const res = await authService.getUser();
+        if (res) {
+          const { email, id, name } = res;
+
+          setUser({
+            name,
+            email,
+            id,
+          });
+        }
+      }
+    })();
+  }, []);
 
   return (
     <AuthContext.Provider

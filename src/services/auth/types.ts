@@ -24,3 +24,9 @@ export type SignUpResponse = {
   };
   message: string;
 };
+
+export type GetUserResponse = {
+  id: string;
+  email: string;
+  name: string;
+};

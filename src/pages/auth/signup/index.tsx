@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import useSignUp from "./useSignUp";
 import { useAuth } from "@/contexts/AuthContext";
+import { canSSRGuest } from "@/utils/canSSRGuest";
 
 export default function SignUp() {
   const { formik } = useSignUp();
@@ -54,3 +55,9 @@ export default function SignUp() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  };
+});

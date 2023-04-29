@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
 import useSignIn from "./useSignIn";
+import { canSSRGuest } from "@/utils/canSSRGuest";
 
 export default function SignIn() {
   const { formik } = useSignIn();
@@ -51,3 +52,9 @@ export default function SignIn() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  };
+});

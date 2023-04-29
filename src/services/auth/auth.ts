@@ -1,11 +1,13 @@
 import { AxiosError } from "axios";
 import { httpClient } from "../httpClient";
 import {
+  GetUserResponse,
   SignInRequest,
   SignInResponse,
   SignUpRequest,
   SignUpResponse,
 } from "./types";
+import { toast } from "react-toastify";
 
 const signIn = async (
   param: SignInRequest,
@@ -16,7 +18,7 @@ const signIn = async (
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error.response?.data.error);
+      toast.warning(error.response?.data.error);
     }
   }
 };
@@ -30,6 +32,19 @@ const signUp = async (
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
+      toast.warning(error.response?.data.error);
+    }
+  }
+};
+
+const getUser = async (): Promise<GetUserResponse | undefined> => {
+  try {
+    const res = await httpClient.get<GetUserResponse>("me");
+    const data: GetUserResponse = res.data;
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.warning(error.response?.data.error);
     }
   }
 };
@@ -37,4 +52,5 @@ const signUp = async (
 export const authService = {
   signIn,
   signUp,
+  getUser,
 };
