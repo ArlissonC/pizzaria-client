@@ -7,6 +7,7 @@ import {
 } from "./category.types";
 import { httpClient } from "../httpClient";
 import { parseCookies } from "nookies";
+import { GetServerSidePropsContext } from "next";
 
 const createCategory = async (
   param: CreateCategoryRequest,
@@ -26,7 +27,7 @@ const createCategory = async (
 };
 
 const listCategories = async (
-  ctx: any,
+  ctx: GetServerSidePropsContext,
 ): Promise<ListCategoriesResponse[] | undefined> => {
   const token = parseCookies(ctx)["@nextauth.token"];
 
@@ -37,9 +38,7 @@ const listCategories = async (
       { Authorization: `Bearer ${token}` },
     );
 
-    console.log(res);
     const data: ListCategoriesResponse[] = res.data;
-
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {

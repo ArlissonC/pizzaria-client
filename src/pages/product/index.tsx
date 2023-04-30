@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import { canSSRAuth } from "@/utils/canSSRAuth";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { FiUpload } from "react-icons/fi";
 import useProduct from "./useProduct";
@@ -21,8 +21,7 @@ interface CategoriesProps {
 const Product = ({ categoriesList }: CategoriesProps) => {
   const [categories] = useState(categoriesList);
   const { avatarUrl, handleFile, formik } = useProduct();
-
-  const { setFieldValue, errors, touched, values, handleSubmit } = formik;
+  const { setFieldValue, errors, values, handleSubmit } = formik;
 
   return (
     <>
