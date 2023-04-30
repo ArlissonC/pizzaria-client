@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import useCategory from "./useCategory";
 import Head from "next/head";
+import { canSSRAuth } from "@/utils/canSSRAuth";
 
 export default function Category() {
   const { nameCategory, setNameCategory, handleRegisterCategory } =
@@ -40,3 +41,9 @@ export default function Category() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  return {
+    props: {},
+  };
+});

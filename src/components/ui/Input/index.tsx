@@ -19,8 +19,15 @@ export const Input = ({ errors, ...rest }: InputProps) => {
   );
 };
 
-interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  errors?: FormikErrors<string>;
+}
 
-export const TextArea = ({ ...rest }: TextAreaProps) => {
-  return <textarea className={styles.input} {...rest}></textarea>;
+export const TextArea = ({ errors, ...rest }: TextAreaProps) => {
+  return (
+    <label>
+      <textarea className={styles.input} {...rest}></textarea>
+      {errors && <p className={styles.error}>{errors}</p>}
+    </label>
+  );
 };

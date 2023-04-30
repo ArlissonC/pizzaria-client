@@ -39,7 +39,7 @@ const signUp = async (
 
 const getUser = async (): Promise<GetUserResponse | undefined> => {
   try {
-    const res = await httpClient.get<GetUserResponse>("me");
+    const res = await httpClient.get<GetUserResponse>("users/me");
     const data: GetUserResponse = res.data;
     return data;
   } catch (error) {

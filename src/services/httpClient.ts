@@ -10,8 +10,11 @@ const http = axios.create({
   headers: { Authorization: token && `Bearer ${token}` },
 });
 
-const get = <T>(url: string, params?: object): Promise<AxiosResponse<T>> =>
-  http.get(url, { params });
+const get = <T>(
+  url: string,
+  params?: object,
+  headers?: object,
+): Promise<AxiosResponse<T>> => http.get(url, { params, headers });
 
 const post = <T>(url: string, data?: object): Promise<AxiosResponse<T>> =>
   http.post(url, data);

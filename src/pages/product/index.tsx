@@ -1,24 +1,28 @@
 import Header from "@/components/Header";
 import { canSSRAuth } from "@/utils/canSSRAuth";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { FiUpload } from "react-icons/fi";
+import useProduct from "./useProduct";
+import { categoryService } from "@/services/category";
+import { Input, TextArea } from "@/components/ui/Input";
+import Select from "@/components/ui/Select";
 
-const Product = () => {
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [imageAvatar, setImageAvatar] = useState<File | null>(null);
+type ItemProps = {
+  id: string;
+  name: string;
+};
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+interface CategoriesProps {
+  categoriesList: ItemProps[];
+}
 
-    const image = e.target.files[0];
+const Product = ({ categoriesList }: CategoriesProps) => {
+  const [categories] = useState(categoriesList);
+  const { avatarUrl, handleFile, formik } = useProduct();
 
-    if (image.type === "image/jpeg" || image.type === "image/png") {
-      setImageAvatar(image);
-      setAvatarUrl(URL.createObjectURL(e.target.files[0]));
-    }
-  };
+  const { setFieldValue, errors, touched, values, handleSubmit } = formik;
 
   return (
     <>
@@ -31,7 +35,7 @@ const Product = () => {
         <main className={styles.container}>
           <h1>Novo produto</h1>
 
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.labelAvatar}>
               <span>
                 <FiUpload size={30} color="#fff" />
@@ -52,27 +56,39 @@ const Product = () => {
                 />
               )}
             </label>
-
-            <select>
-              <option>Bebida</option>
-              <option>Pizzas</option>
-            </select>
-
-            <input
+            <Select
+              value={values.category_id}
+              onChange={(e) => setFieldValue("category_id", e.target.value)}
+              errors={errors.category_id}
+              options={categories.map(({ id, name }) => {
+                return {
+                  label: name,
+                  value: id,
+                };
+              })}
+            />
+            <Input
               type="text"
               placeholder="Digite o nome do produto"
               className={styles.input}
+              value={values.name}
+              errors={errors.name}
+              onChange={(e) => setFieldValue("name", e.target.value)}
             />
-
-            <input
+            <Input
               type="text"
               placeholder="Preço do produto"
               className={styles.input}
+              value={values.price}
+              errors={errors.price}
+              onChange={(e) => setFieldValue("price", e.target.value)}
             />
-
-            <textarea
+            <TextArea
               placeholder="Descreva seu produto..."
               className={styles.input}
+              value={values.description}
+              errors={errors.description}
+              onChange={(e) => setFieldValue("description", e.target.value)}
             />
 
             <button className={styles.buttonAdd} type="submit">
@@ -86,8 +102,12 @@ const Product = () => {
 };
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
+  const data = await categoryService.listCategories(ctx);
+
   return {
-    props: {},
+    props: {
+      categoriesList: data,
+    },
   };
 });
 
