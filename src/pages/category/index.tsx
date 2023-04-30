@@ -15,7 +15,6 @@ export default function Category() {
       </Head>
       <div>
         <Header />
-
         <main className={styles.container}>
           <h1>Cadastrar categorias</h1>
 
