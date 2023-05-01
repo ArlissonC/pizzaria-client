@@ -18,7 +18,7 @@ type Order = {
   name: string | null;
 };
 
-export default function Dashboard() {
+const Dashboard = () => {
   const [orderList, setOrderList] = useState<Order[]>();
   const [modalItem, setModalItem] = useState<GetOrderDetailsResponse[]>();
   const [modalVisible, setModalVisible] = useState(false);
@@ -90,10 +90,12 @@ export default function Dashboard() {
       </div>
     </>
   );
-}
+};
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   return {
     props: {},
   };
 });
+
+export default Dashboard;
