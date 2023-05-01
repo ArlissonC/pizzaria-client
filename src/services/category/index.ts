@@ -10,12 +10,12 @@ import { parseCookies } from "nookies";
 import { GetServerSidePropsContext } from "next";
 
 const createCategory = async (
-  param: CreateCategoryRequest,
+  params: CreateCategoryRequest,
 ): Promise<CreateCategoryResponse | undefined> => {
   try {
     const res = await httpClient.post<CreateCategoryResponse>(
       "category",
-      param,
+      params,
     );
     const data: CreateCategoryResponse = res.data;
     return data;
