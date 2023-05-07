@@ -10,6 +10,8 @@ import { ModalOrder } from "@/components/ModalOrder";
 import { GetOrderDetailsResponse } from "@/services/order/order.types";
 import { toast } from "react-toastify";
 import { socket } from "@/utils/websocket";
+import { parseCookies } from "nookies";
+import { http } from "@/services/httpClient";
 
 type Order = {
   id: string;

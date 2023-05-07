@@ -7,6 +7,16 @@ export const http = axios.create({
   baseURL,
 });
 
+http.interceptors.request.use((config) => {
+  const token = parseCookies()["@nextauth.token"];
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
 const get = <T>(
   url: string,
   params?: object,
