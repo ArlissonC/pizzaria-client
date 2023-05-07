@@ -42,6 +42,9 @@ const Dashboard = () => {
     if (res) {
       toast.success(res.message);
       setModalVisible(false);
+      const orders = await orderService.listOrders();
+
+      if (orders) setOrderList(orders);
     }
   };
 
