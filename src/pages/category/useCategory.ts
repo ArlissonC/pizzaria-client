@@ -1,12 +1,20 @@
 import { categoryService } from "@/services/category";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 const useCategory = () => {
   const [nameCategory, setNameCategory] = useState("");
 
-  const handleRegisterCategory = (e: FormEvent) => {
+  const handleRegisterCategory = async (e: FormEvent) => {
     e.preventDefault();
 
-    categoryService.createCategory({ name: nameCategory });
+    const res = await categoryService.createCategory({
+      name: nameCategory,
+    });
+
+    if (res) {
+      toast.success(res.message);
+      setNameCategory("");
+    }
   };
 
   return { handleRegisterCategory, nameCategory, setNameCategory };

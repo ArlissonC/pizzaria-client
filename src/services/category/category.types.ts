@@ -3,8 +3,7 @@ export type CreateCategoryRequest = {
 };
 
 export type CreateCategoryResponse = {
-  id: string;
-  name: string;
+  message: string;
 };
 
 export type ListCategoriesResponse = {

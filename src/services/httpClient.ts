@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import nookies, { parseCookies } from "nookies";
 
-const baseURL = "http://localhost:3333";
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const token = parseCookies()["@nextauth.token"];
 

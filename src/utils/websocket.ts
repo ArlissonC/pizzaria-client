@@ -1,3 +1,5 @@
 import { io } from "socket.io-client";
 
-export const socket = () => io("http://localhost:3333");
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export const socket = () => io(baseUrl!);
