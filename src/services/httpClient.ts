@@ -3,11 +3,8 @@ import nookies, { parseCookies } from "nookies";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const token = parseCookies()["@nextauth.token"];
-
-const http = axios.create({
+export const http = axios.create({
   baseURL,
-  headers: { Authorization: token && `Bearer ${token}` },
 });
 
 const get = <T>(

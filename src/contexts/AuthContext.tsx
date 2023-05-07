@@ -1,5 +1,6 @@
 import { authService } from "@/services/auth";
 import { SignUpRequest } from "@/services/auth/types";
+import { http } from "@/services/httpClient";
 import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import {
@@ -83,7 +84,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         const res = await authService.getUser();
         if (res) {
           const { email, id, name } = res;
-
+          http.defaults.headers.common["Authorization"] = `Bearer ${token}`;
           setUser({
             name,
             email,
@@ -92,7 +93,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       }
     })();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <AuthContext.Provider
