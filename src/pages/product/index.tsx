@@ -4,10 +4,10 @@ import Head from "next/head";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { FiUpload } from "react-icons/fi";
-import useProduct from "./useProduct";
 import { categoryService } from "@/services/category";
 import { Input, TextArea } from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
+import useProduct from "../../hooks/useProduct";
 
 type ItemProps = {
   id: string;

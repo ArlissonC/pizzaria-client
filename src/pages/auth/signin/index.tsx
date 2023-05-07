@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
-import useSignIn from "./useSignIn";
 import { canSSRGuest } from "@/utils/canSSRGuest";
+import useSignIn from "../../../hooks/useSignIn";
 
 export default function SignIn() {
   const { formik } = useSignIn();

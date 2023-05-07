@@ -1,8 +1,8 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { schemaProductForm } from "./schema";
 import { toast } from "react-toastify";
 import { productService } from "@/services/product";
+import { schemaProductForm } from "@/schemas/productSchema";
 
 const useProduct = () => {
   const [avatarUrl, setAvatarUrl] = useState("");

@@ -5,9 +5,9 @@ import Image from "next/image";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
-import useSignUp from "./useSignUp";
 import { useAuth } from "@/contexts/AuthContext";
 import { canSSRGuest } from "@/utils/canSSRGuest";
+import useSignUp from "../../../hooks/useSignUp";
 
 export default function SignUp() {
   const { formik } = useSignUp();

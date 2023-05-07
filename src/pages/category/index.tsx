@@ -1,9 +1,9 @@
 import Header from "@/components/Header";
 import React from "react";
 import styles from "./styles.module.scss";
-import useCategory from "./useCategory";
 import Head from "next/head";
 import { canSSRAuth } from "@/utils/canSSRAuth";
+import useCategory from "../../hooks/useCategory";
 
 export default function Category() {
   const { nameCategory, setNameCategory, handleRegisterCategory } =

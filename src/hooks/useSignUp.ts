@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import { schemaForm } from "./schema";
 import { useAuth } from "@/contexts/AuthContext";
+import { schemaForm } from "@/schemas/signUpSchema";
 
 const useSignUp = () => {
   const { signUp } = useAuth();
