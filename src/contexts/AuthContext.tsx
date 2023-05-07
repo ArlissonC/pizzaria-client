@@ -79,12 +79,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     (async () => {
       const { "@nextauth.token": token } = parseCookies();
+      http.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       if (token) {
         const res = await authService.getUser();
         if (res) {
           const { email, id, name } = res;
-          http.defaults.headers.common["Authorization"] = `Bearer ${token}`;
           setUser({
             name,
             email,
