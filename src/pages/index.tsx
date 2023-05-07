@@ -9,6 +9,7 @@ import { orderService } from "@/services/order";
 import { ModalOrder } from "@/components/ModalOrder";
 import { GetOrderDetailsResponse } from "@/services/order/order.types";
 import { toast } from "react-toastify";
+import { socket } from "@/utils/websocket";
 
 type Order = {
   id: string;
@@ -19,9 +20,10 @@ type Order = {
 };
 
 const Dashboard = () => {
-  const [orderList, setOrderList] = useState<Order[]>();
+  const [orderList, setOrderList] = useState<Order[]>([]);
   const [modalItem, setModalItem] = useState<GetOrderDetailsResponse[]>();
   const [modalVisible, setModalVisible] = useState(false);
+  const [socketInstance] = useState(socket());
 
   const handleOpenModalView = async (order_id: string) => {
     const res = await orderService.getOrderDetails(order_id);
@@ -44,7 +46,21 @@ const Dashboard = () => {
   useEffect(() => {
     (async () => {
       const res = await orderService.listOrders();
-      setOrderList(res);
+
+      if (res) {
+        setOrderList(res);
+        socketInstance.on("new-order", (data) => {
+          (() => {
+            setOrderList(
+              [...res, data].sort(
+                (a, b) =>
+                  new Date(b.created_at).getTime() -
+                  new Date(a.created_at).getTime(),
+              ),
+            );
+          })();
+        });
+      }
     })();
   }, []);
 

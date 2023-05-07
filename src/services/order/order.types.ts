@@ -4,6 +4,7 @@ export type ListOrdersResponse = {
   status: boolean;
   draft: boolean;
   name: string | null;
+  created_at: string;
 };
 
 export type GetOrderDetailsResponse = {
