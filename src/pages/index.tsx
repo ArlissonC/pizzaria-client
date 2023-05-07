@@ -65,7 +65,7 @@ const Dashboard = () => {
           </div>
 
           <article className={styles.listOreders}>
-            {orderList?.map(({ name, id }) => (
+            {orderList?.map(({ id, table }) => (
               <section
                 key={id}
                 className={styles.orderItem}
@@ -73,7 +73,7 @@ const Dashboard = () => {
               >
                 <button>
                   <div className={styles.tag}></div>
-                  <span>{name}</span>
+                  <span>Mesa {table}</span>
                 </button>
               </section>
             ))}
